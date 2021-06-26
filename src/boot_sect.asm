@@ -7,7 +7,7 @@ int 0x10
 jmp $
 
 my_data:
-  db "X"
+  db "L"
 
 times 510-($-$$) db 0
 dw 0xaa55
