@@ -5,6 +5,9 @@ run: $(OUT_O_DIR)/boot_sect.bin
 
 build: $(OUT_O_DIR)/boot_sect.bin
 
+clean:
+	rm -rf $(OUT_O_DIR)
+
 $(OUT_O_DIR)/boot_sect.bin: $(wildcard ./src/*.asm)
 	mkdir -p $(OUT_O_DIR)
 	nasm -f bin ./src/boot_sect.asm -o $(OUT_O_DIR)/boot_sect.bin
