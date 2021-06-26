@@ -1,12 +1,12 @@
-print:
+bios_print:
   ; save ax
   pusha
 
-start:
-  ; get data at bx, if \0 break
+bios_print_start:
+  ; get data at bx, if 0 break
   mov al, [bx]
   cmp al, 0
-  je done
+  je bios_print_done
 
   ; tty print mode, then print
   mov ah, 0x0e
@@ -14,14 +14,14 @@ start:
 
   ; increment pointer, loop
   add bx, 1
-  jmp start
+  jmp bios_print_start
 
-done:
+bios_print_done:
   ; restore ax
   popa
   ret
 
-print_nl:
+bios_print_line:
   ; save ax
   pusha
 

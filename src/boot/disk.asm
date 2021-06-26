@@ -25,8 +25,8 @@ sectors_error:
   mov bx, SECTORS_ERROR
 
   ; print error and newline
-  call print
-  call print_nl
+  ;call bios_print
+  ;call bios_print_line
 
   ; loop forever
   jmp disk_loop
@@ -35,8 +35,8 @@ disk_error:
   mov bx, DISK_ERROR
 
   ; print error and newline
-  call print
-  call print_nl
+  ;call bios_print
+  ;call bios_print_line
 
   ; loop forever
   jmp disk_loop
