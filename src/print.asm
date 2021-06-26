@@ -39,4 +39,3 @@ print_nl:
   ; restore ax
   popa
   ret
-
