@@ -16,8 +16,32 @@ typedef struct cursor_position {
   u8 col;
 } cursor_position_t;
 
-void clear_screen(enum color color);
+/*
+ * Clears all text and sets the cursor to the top left corner
+ */
+void clear_screen ();
 
-void print_char (char c, enum color foreground, enum color background);
+/*
+ * Clears all text, sets the background to the passed color, and sets the cursor to the top left corner
+ */
+void clear_screen_style (enum color color);
 
-void print (char *str, enum color foreground, enum color background);
+/*
+ * Writes a char to the screen with color
+ */
+void print_char_style (char c, enum color foreground, enum color background);
+
+/*
+ * Writes a string to the screen with color
+ */
+void print_style (char *str, enum color foreground, enum color background);
+
+/*
+ * Writes a char to the screen
+ */
+void print_char (char c);
+
+/*
+ * Writes a string to the screen
+ */
+void print (char *str);

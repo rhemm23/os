@@ -47,7 +47,7 @@ void scroll_down () {
   }
 }
 
-void print_char (char c, enum color foreground, enum color background) {
+void print_char_style (char c, enum color foreground, enum color background) {
   u8 foreground_byte = (u8)foreground;
   u8 background_byte = (u8)background;
 
@@ -64,7 +64,6 @@ void print_char (char c, enum color foreground, enum color background) {
   }
 
   // Determine where the cursor should go after the char is drawn
-  int isLineEmpty = cursor_position.col == 0 && screen[cursor_position.row * MAX_COLS * 2] == 0;
   if (c == '\n') {
     cursor_position.col = 0;
     cursor_position.row++;
@@ -89,13 +88,21 @@ void print_char (char c, enum color foreground, enum color background) {
   set_cursor_position(cursor_position);
 }
 
-void print (char *str, enum color foreground, enum color background) {
+void print_style (char *str, enum color foreground, enum color background) {
   for (; *str != '\0'; str++) {
-    print_char(*str, foreground, background);
+    print_char_style(*str, foreground, background);
   }
 }
 
-void clear_screen(enum color color) {
+void print_char (char c) {
+  print_char_style(c, WHITE, BLACK);
+}
+
+void print (char *str) {
+  print_style(str, WHITE, BLACK);
+}
+
+void clear_screen_style (enum color color) {
   int i;
   u8 *screen = (u8*)VIDEO_ADDRESS;
   int screen_size = MAX_COLS * MAX_ROWS;
@@ -107,4 +114,8 @@ void clear_screen(enum color color) {
     .row = 0,
     .col = 0
   });
+}
+
+void clear_screen () {
+  clear_screen_style(BLACK);
 }
