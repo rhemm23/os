@@ -1,13 +1,18 @@
 [org 0x7c00]
-mov ah, 0x0e
 
-mov al, [my_data]
-int 0x10
+mov bx, HELLO
+call print
+
+call print_nl
 
 jmp $
 
-my_data:
-  db "L"
+; includes
+%include "./src/print.asm"
+
+; data
+HELLO:
+  db 'Hello World!', 0
 
 times 510-($-$$) db 0
 dw 0xaa55
