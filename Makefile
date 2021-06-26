@@ -1,4 +1,4 @@
-OUT_O_DIR := ./obj
+OUT_O_DIR := ./bin
 
 run: $(OUT_O_DIR)/boot_sect.bin
 	qemu-system-x86_64 ./$(OUT_O_DIR)/boot_sect.bin
