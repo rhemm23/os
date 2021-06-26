@@ -43,9 +43,19 @@ extern void isr29();
 extern void isr30();
 extern void isr31();
 
+/*
+ * Calls assembly to set the descriptor table
+ */
 void isr_install ();
+
+/*
+ * Called by assembly interrupt
+ */
 void isr_handler (registers_t registers);
 
+/*
+ * What each interrupt means
+ */
 char *exception_messages[] = {
   "Division By Zero",
   "Debug",
