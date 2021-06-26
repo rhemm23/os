@@ -16,12 +16,12 @@ call load_kernel
 call switch
 
 ; includes
-%include "./src/gdt.asm"
-%include "./src/disk.asm"
-%include "./src/print.asm"
-%include "./src/switch.asm"
-%include "./src/print_hex.asm"
-%include "./src/32bit_print.asm"
+%include "./src/boot/gdt.asm"
+%include "./src/boot/disk.asm"
+%include "./src/boot/print.asm"
+%include "./src/boot/switch.asm"
+%include "./src/boot/print_hex.asm"
+%include "./src/boot/print_prot.asm"
 
 [bits 16]
 load_kernel:
