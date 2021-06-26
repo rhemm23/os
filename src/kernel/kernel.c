@@ -1,8 +1,10 @@
-#include "../drivers/screen.h"
+#include "../drivers/keyboard.h"
 
 void main() {
   isr_install();
 
-  __asm__ __volatile__("int $2");
-  __asm__ __volatile__("int $3");
+  // Enable interrupts
+  asm volatile("sti");
+
+  init_keyboard();
 }

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef ISR_H
+#define ISR_H
 
 #include "../types.h"
 
@@ -18,13 +19,6 @@
 #define IRQ13 45
 #define IRQ14 46
 #define IRQ15 47
-
-typedef struct {
-   u32 ds;
-   u32 edi, esi, ebp, esp, ebx, edx, ecx, eax;
-   u32 int_no, err_code;
-   u32 eip, cs, eflags, useresp, ss;
-} registers_t;
 
 typedef void (*isr_t)(registers_t);
 
@@ -102,40 +96,4 @@ void irq_handler (registers_t registers);
  */
 void register_interrupt_handler (u8 n, isr_t handler);
 
-/*
- * What each interrupt means
- */
-char *exception_messages[] = {
-  "Division By Zero",
-  "Debug",
-  "Non Maskable Interrupt",
-  "Breakpoint",
-  "Into Detected Overflow",
-  "Out of Bounds",
-  "Invalid Opcode",
-  "No Coprocessor",
-  "Double Fault",
-  "Coprocessor Segment Overrun",
-  "Bad TSS",
-  "Segment Not Present",
-  "Stack Fault",
-  "General Protection Fault",
-  "Page Fault",
-  "Unknown Interrupt",
-  "Coprocessor Fault",
-  "Alignment Check",
-  "Machine Check",
-  "Reserved",
-  "Reserved",
-  "Reserved",
-  "Reserved",
-  "Reserved",
-  "Reserved",
-  "Reserved",
-  "Reserved",
-  "Reserved",
-  "Reserved",
-  "Reserved",
-  "Reserved",
-  "Reserved"
-};
+#endif

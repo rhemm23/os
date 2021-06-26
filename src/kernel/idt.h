@@ -1,4 +1,5 @@
-#pragma once
+#ifndef IDT_H
+#define IDT_H
 
 #include "../types.h"
 
@@ -30,3 +31,5 @@ void set_idt ();
  * Sets the handler for a specific interrupt
  */
 void set_idt_gate (u8 n, u32 handler);
+
+#endif

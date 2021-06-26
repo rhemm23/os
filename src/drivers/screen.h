@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SCREEN_H
+#define SCREEN_H
 
 #include "ports.h"
 #include "color.h"
@@ -45,3 +46,5 @@ void print_char (char c);
  * Writes a string to the screen
  */
 void print (char *str);
+
+#endif

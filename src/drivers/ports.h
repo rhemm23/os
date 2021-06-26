@@ -1,4 +1,5 @@
-#pragma once
+#ifndef PORTS_H
+#define PORTS_H
 
 #include "../types.h"
 
@@ -21,3 +22,5 @@ void port_byte_out (u16 port, u8 data);
  * Sends a word to a port
  */
 void port_word_out (u16 port, u16 data);
+
+#endif
