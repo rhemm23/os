@@ -22,31 +22,10 @@ disk_load:
   ret
 
 sectors_error:
-  mov bx, SECTORS_ERROR
-
-  ; print error and newline
-  ;call bios_print
-  ;call bios_print_line
-
-  ; loop forever
   jmp disk_loop
 
 disk_error:
-  mov bx, DISK_ERROR
-
-  ; print error and newline
-  ;call bios_print
-  ;call bios_print_line
-
-  ; loop forever
   jmp disk_loop
 
 disk_loop:
   jmp $
-
-
-DISK_ERROR:
-  db "Failed to read disk", 0
-
-SECTORS_ERROR:
-  db "Failed to read all sectors", 0

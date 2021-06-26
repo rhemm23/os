@@ -1,6 +1,8 @@
 #include "../drivers/screen.h"
 
 void main() {
-  clear_screen();
-  print("Hello world!\n");
+  isr_install();
+
+  __asm__ __volatile__("int $2");
+  __asm__ __volatile__("int $3");
 }
