@@ -1,5 +1,5 @@
 #include "drivers/screen.h"
-#include "mem.h"
+#include "bios_data.h"
 
 void main() {
   isr_install();

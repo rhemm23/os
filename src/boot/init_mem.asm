@@ -1,8 +1,8 @@
 signature equ 0x534d4150
 
 ; where we will store results in memory
-entry_cnt equ 0x1000
-data_addr equ 0x1002
+entry_cnt equ 0x9000
+data_addr equ 0x9002
 
 init_mem:
   pusha

@@ -14,12 +14,12 @@ typedef unsigned short u16;
 /*
  * Double word
  */
-typedef unsigned int u32;
+typedef unsigned long int u32;
 
 /*
  * Quad word
  */
-typedef unsigned long u64;
+typedef unsigned long long int u64;
 
 /*
  * Registers received when a call is made to a c function from assembly

@@ -3,7 +3,7 @@
 
 #include "../types.h"
 
-void num_to_str (u64 num, char *str);
+void num_to_str (u32 num, char *str);
 
 void reverse (char *str);
 
