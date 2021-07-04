@@ -1,4 +1,4 @@
-#include "../drivers/keyboard.h"
+#include "../drivers/screen.h"
 
 void main() {
   isr_install();
@@ -6,5 +6,6 @@ void main() {
   // Enable interrupts
   asm volatile("sti");
 
-  init_keyboard();
+  clear_screen();
+  print("Hello\n");
 }

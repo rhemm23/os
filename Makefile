@@ -38,10 +38,10 @@ $(OUT_O_DIR)/kernel_entry.o: $(SRC_DIR)/boot/kernel_entry.asm
 	mkdir -p $(OUT_O_DIR)
 	nasm $< -f elf -o $@
 
-$(OUT_O_DIR)/boot_sect.bin: $(SRC_DIR)/boot/boot_sect.asm
+$(OUT_O_DIR)/sect.bin: $(SRC_DIR)/boot/sect.asm
 	mkdir -p $(OUT_O_DIR)
 	nasm -f bin $< -o $@
 
-$(OUT_O_DIR)/os_image.bin: $(OUT_O_DIR)/boot_sect.bin $(OUT_O_DIR)/kernel.bin
+$(OUT_O_DIR)/os_image.bin: $(OUT_O_DIR)/sect.bin $(OUT_O_DIR)/kernel.bin
 	cat $^ > $@
 

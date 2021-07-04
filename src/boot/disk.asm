@@ -1,7 +1,6 @@
 ; load 'dh' sectors into es:bx
 disk_load:
   pusha
-
   push dx
 
   mov ah, 0x02      ; read method for 0x13 interrupt
@@ -13,19 +12,15 @@ disk_load:
   mov dh, 0x00      ; head number
 
   int 0x13          ; BIOS interrupt
-  jc disk_error     ; error if carry bit
+  jc disk_load_err  ; error if carry bit
 
   pop dx
+  
   cmp al, dh
-  jne sectors_error ; read wrong number of sectors
+  jne disk_load_err ; read wrong number of sectors
+
   popa
   ret
 
-sectors_error:
-  jmp disk_loop
-
-disk_error:
-  jmp disk_loop
-
-disk_loop:
+disk_load_err:
   jmp $

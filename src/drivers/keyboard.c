@@ -2,7 +2,6 @@
 
 static void keyboard_callback (registers_t registers) {
   u8 scancode = port_byte_in(0x60);
-  print("got a keystroke\n");
 }
 
 void init_keyboard () {
