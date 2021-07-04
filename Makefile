@@ -1,47 +1,44 @@
-OUT_O_DIR = bin
-SRC_DIR = src
+c_sources := $(shell find src/kernel/ -type f -name '*.c')
+headers := $(shell find src/kernel/ -type f -name '*.h')
 
-C_SOURCES := $(shell find $(SRC_DIR)/ -type f -name '*.c')
-HEADERS := $(shell find $(SRC_DIR)/ -type f -name '*.h')
+asm_sources := $(shell find src/kernel/ -type f -name '*.asm')
 
-ASM_SOURCES := $(shell find $(SRC_DIR)/kernel -type f -name '*.asm')
+obj_names := $(basename $(notdir $(c_sources)))
+obj_files := $(foreach obj,$(obj_names),bin/$(obj).o)
 
-OBJ_NAMES := $(basename $(notdir $(C_SOURCES)))
-OBJ_FILES := $(foreach obj,$(OBJ_NAMES),$(OUT_O_DIR)/$(obj).o)
+asm_obj_names := $(basename $(notdir $(asm_sources)))
+asm_obj_files := $(foreach obj,$(asm_obj_names),bin/$(obj).o)
 
-ASM_OBJ_NAMES := $(basename $(notdir $(ASM_SOURCES)))
-ASM_OBJ_FILES := $(foreach obj,$(ASM_OBJ_NAMES),$(OUT_O_DIR)/$(obj).o)
+cc=/usr/local/i386elfgcc/bin/i386-elf-gcc
+ld=/usr/local/i386elfgcc/bin/i386-elf-ld
 
-CC=/usr/local/i386elfgcc/bin/i386-elf-gcc
-LD=/usr/local/i386elfgcc/bin/i386-elf-ld
-
-run: $(OUT_O_DIR)/os_image.bin
+run: bin/os.bin
 	qemu-system-i386 -fda $<
 
-build: $(OUT_O_DIR)/os_image.bin
+build: bin/os.bin
 
 clean:
-	rm -rf $(OUT_O_DIR)
+	rm -rf bin/
 
-$(ASM_OBJ_FILES): $(ASM_SOURCES) $(HEADERS)
-	mkdir -p $(OUT_O_DIR)
-	$(foreach asm_file,$(ASM_SOURCES),nasm $(asm_file) -f elf -o $(OUT_O_DIR)/$(basename $(notdir $(asm_file))).o;)
+$(asm_obj_files): $(asm_sources) $(headers)
+	mkdir -p bin
+	$(foreach asm_file,$(asm_sources),nasm $(asm_file) -f elf -o bin/$(basename $(notdir $(asm_file))).o;)
 
-$(OBJ_FILES): $(C_SOURCES) $(HEADERS)
-	mkdir -p $(OUT_O_DIR)
-	$(foreach c_file,$(C_SOURCES),${CC} -ffreestanding -c $(c_file) -o $(OUT_O_DIR)/$(basename $(notdir $(c_file))).o;)
+$(obj_files): $(c_sources) $(headers)
+	mkdir -p bin
+	$(foreach c_file,$(c_sources),$(cc) -ffreestanding -c $(c_file) -o bin/$(basename $(notdir $(c_file))).o;)
 
-$(OUT_O_DIR)/kernel.bin: $(OUT_O_DIR)/kernel_entry.o $(OBJ_FILES) $(ASM_OBJ_FILES)
-	$(LD) -o $@ -Ttext 0x1000 $^ --oformat binary
+bin/kernel.bin: bin/kernel_entry.o $(obj_files) $(asm_obj_files)
+	$(ld) -o $@ -Ttext 0x1000 $^ --oformat binary
 
-$(OUT_O_DIR)/kernel_entry.o: $(SRC_DIR)/boot/kernel_entry.asm
-	mkdir -p $(OUT_O_DIR)
+bin/kernel_entry.o: src/kernel/kernel_entry.asm
+	mkdir -p bin
 	nasm $< -f elf -o $@
 
-$(OUT_O_DIR)/sect.bin: $(SRC_DIR)/boot/sect.asm
-	mkdir -p $(OUT_O_DIR)
+bin/sect.bin: src/boot/sect.asm
+	mkdir -p bin
 	nasm -f bin $< -o $@
 
-$(OUT_O_DIR)/os_image.bin: $(OUT_O_DIR)/sect.bin $(OUT_O_DIR)/kernel.bin
+bin/os.bin: bin/sect.bin bin/kernel.bin
 	cat $^ > $@
 

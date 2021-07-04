@@ -1,8 +1,8 @@
 #ifndef KEYBOARD_H
 #define KEYBOARD_H
 
-#include "../types.h"
-#include "../kernel/isr.h"
+#include "../../types.h"
+#include "../isr.h"
 
 void init_keyboard ();
 

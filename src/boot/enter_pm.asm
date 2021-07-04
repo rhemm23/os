@@ -1,5 +1,5 @@
 [bits 16]
-switch:
+enter_pm:
   cli                   ; disable interrupts
   lgdt [gdt_descriptor]  ; load descriptor table
 

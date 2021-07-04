@@ -1,14 +1,15 @@
 [org 0x7c00]
+
 kernel_offset equ 0x1000
 
 mov [boot_drive], dl
 
 ; setup stack
-mov bp, 0x9000
+mov bp, 0x7bff
 mov sp, bp
 
 call load_kernel
-call switch
+call enter_pm
 
 ; includes
 %include "./src/boot/gdt.asm"

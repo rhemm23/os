@@ -1,7 +1,7 @@
 #ifndef PORTS_H
 #define PORTS_H
 
-#include "../types.h"
+#include "../../types.h"
 
 /*
  * Reads a byte from a port

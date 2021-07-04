@@ -3,7 +3,7 @@
 
 #include "ports.h"
 #include "color.h"
-#include "../types.h"
+#include "../../types.h"
 
 #define VIDEO_ADDRESS 0xb8000
 #define MAX_ROWS (u8)25
