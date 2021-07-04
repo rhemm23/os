@@ -7,9 +7,7 @@ disk_load:
   mov ah, 0x02      ; read method for 0x13 interrupt
   mov al, dh        ; number of sectors to read
 
-  mov cl, 0x02      ; sector start, 0x01 is our boot sector
   mov ch, 0x00      ; cylinder number
-
   mov dh, 0x00      ; head number
 
   int 0x13          ; BIOS interrupt
@@ -24,7 +22,7 @@ disk_load:
 disk_load_err:
   mov bx, disk_err
   call bprint
-  hlt
+  jmp $
 
 num_sectors db 0
 disk_err db "Failed to read disk", 0

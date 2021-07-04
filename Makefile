@@ -29,7 +29,7 @@ $(obj_files): $(c_sources) $(headers)
 	$(foreach c_file,$(c_sources),$(cc) -ffreestanding -c $(c_file) -o bin/$(basename $(notdir $(c_file))).o;)
 
 bin/kernel.bin: bin/kernel_entry.o $(obj_files) $(asm_obj_files)
-	$(ld) -o $@ -Ttext 0x1000 $^ --oformat binary
+	$(ld) -o $@ -Ttext 0x7E00 $^ --oformat binary
 
 bin/kernel_entry.o: src/kernel/kernel_entry.asm
 	mkdir -p bin
@@ -43,5 +43,5 @@ bin/boot.bin: src/boot/boot.asm
 	mkdir -p bin
 	nasm -f bin $< -o $@
 
-bin/os.bin: bin/sect.bin bin/boot.bin
+bin/os.bin: bin/sect.bin bin/boot.bin bin/kernel.bin
 	cat $^ > $@

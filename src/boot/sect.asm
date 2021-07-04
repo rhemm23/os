@@ -1,6 +1,8 @@
 [org 0x7c00]
 
-boot_offset equ 0x7e00
+boot_offset equ 0x0500
+
+push dx
 
 ; set ss, es
 xor ax, ax
@@ -13,6 +15,7 @@ mov sp, bp
 
 mov bx, boot_offset
 mov dh, 1
+mov cl, 2
 
 ; load remaining boot code
 call disk_load
