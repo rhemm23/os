@@ -4,7 +4,8 @@
 #include "drivers/screen.h"
 #include "../types.h"
 
-#define MEM_LAYOUT_ADDR 0x1000
+#define NUM_ENTRIES 0x1000
+#define MEM_LAYOUT 0x1002
 
 typedef struct mem {
   u64 base_addr;

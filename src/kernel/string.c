@@ -1,4 +1,3 @@
-
 #include "string.h"
 
 void num_to_str (u64 num, char *str) {
