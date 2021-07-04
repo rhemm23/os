@@ -4,6 +4,9 @@ signature equ 0x534d4150
 entry_cnt equ 0x9000
 data_addr equ 0x9002
 
+; max number of supported entries
+max_entries equ 128
+
 init_mem:
   pusha
 
@@ -28,6 +31,9 @@ init_mem_loop:
   add di, 24
 
   cmp ebx, 0
+  je init_mem_done
+
+  cmp si, max_entries
   je init_mem_done
 
   jmp init_mem_loop
