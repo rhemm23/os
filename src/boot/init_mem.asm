@@ -1,8 +1,8 @@
 signature equ 0x534d4150
 
 ; where we will store results in memory
-entry_cnt equ 0x0500
-data_addr equ 0x0501
+entry_cnt equ 0x1000
+data_addr equ 0x1001
 
 init_mem:
   pusha
@@ -25,7 +25,7 @@ init_mem_loop:
   jne init_mem_err
 
   add si, 1
-  add di, cx
+  add di, 24
 
   cmp ebx, 0
   je init_mem_done

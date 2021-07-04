@@ -10,6 +10,9 @@ mov bx, kernel_offset
 ; load kernel code
 call disk_load
 
+; load memory layout
+call init_mem
+
 ; enter protected mode, then the kernel
 call enter_pm
 jmp $
@@ -17,6 +20,7 @@ jmp $
 %include "./src/boot/gdt.asm"
 %include "./src/boot/disk.asm"
 %include "./src/boot/bprint.asm"
+%include "./src/boot/init_mem.asm"
 
 [bits 16]
 enter_pm:
