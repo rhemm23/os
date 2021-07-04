@@ -1,7 +1,8 @@
 ; load 'dh' sectors into es:bx
 disk_load:
   pusha
-  push dx
+
+  mov [num_sectors], dh
 
   mov ah, 0x02      ; read method for 0x13 interrupt
   mov al, dh        ; number of sectors to read
@@ -13,14 +14,17 @@ disk_load:
 
   int 0x13          ; BIOS interrupt
   jc disk_load_err  ; error if carry bit
-
-  pop dx
   
-  cmp al, dh
+  cmp al, [num_sectors]
   jne disk_load_err ; read wrong number of sectors
 
   popa
   ret
 
 disk_load_err:
-  jmp $
+  mov bx, disk_err
+  call bprint
+  hlt
+
+num_sectors db 0
+disk_err db "Failed to read disk", 0

@@ -39,6 +39,9 @@ bin/sect.bin: src/boot/sect.asm
 	mkdir -p bin
 	nasm -f bin $< -o $@
 
-bin/os.bin: bin/sect.bin bin/kernel.bin
-	cat $^ > $@
+bin/boot.bin: src/boot/boot.asm
+	mkdir -p bin
+	nasm -f bin $< -o $@
 
+bin/os.bin: bin/sect.bin bin/boot.bin
+	cat $^ > $@
