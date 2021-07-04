@@ -1,5 +1,6 @@
 #include "drivers/screen.h"
 #include "bios_data.h"
+#include "long_mode.h"
 
 void main() {
   isr_install();
@@ -8,5 +9,5 @@ void main() {
   asm volatile("sti");
 
   clear_screen();
-  print_mem_layout();
+  print_lm_available();
 }

@@ -14,10 +14,10 @@ ld=/usr/local/i386elfgcc/bin/i386-elf-ld
 gdb=/usr/local/i386elfgcc/bin/i386-elf-gdb
 
 run: bin/os.bin
-	qemu-system-i386 -fda $<
+	qemu-system-x86_64 -fda $<
 
 debug: bin/os.bin bin/kernel.elf
-	qemu-system-i386 -s -fda bin/os.bin &
+	qemu-system-x86_64 -s -fda bin/os.bin &
 	$(gdb) -ex "target remote localhost:1234" -ex "symbol-file bin/kernel.elf"
 
 build: bin/os.bin
