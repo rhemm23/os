@@ -1,0 +1,8 @@
+0x0500 -> Kernel
+0x7bff -> Boot stack
+0x7c00 -> Bootsector
+0x7e00 -> Secondary bootloader
+0x9000 -> Bios data
+
+0x10000 -> Long mode page setup
+0x7ffff -> Protected mode stack
