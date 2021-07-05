@@ -10,6 +10,10 @@ mov bx, kernel_offset
 ; load kernel code
 call disk_load
 
+; activate a20
+call a20
+jc boot_a20_failed
+
 ; load memory layout
 call init_mem
 
@@ -17,10 +21,16 @@ call init_mem
 call enter_pm
 jmp $
 
+%include "./src/boot/a20.asm"
 %include "./src/boot/gdt.asm"
 %include "./src/boot/disk.asm"
 %include "./src/boot/bprint.asm"
 %include "./src/boot/init_mem.asm"
+
+boot_a20_failed:
+  mov bx, a20_failed_err
+  call bprint
+  jmp $
 
 [bits 16]
 enter_pm:
@@ -48,5 +58,7 @@ init_pm:
 
   call kernel_offset
   jmp $
+
+a20_failed_err db "Failed to activate an available a20 gate", 0
 
 times 512-($-$$) db 0
