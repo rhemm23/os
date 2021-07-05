@@ -3,7 +3,9 @@
 
 #include "drivers/screen.h"
 
-extern int lm_available();
+extern int lm_available ();
+
+extern void enter_lm ();
 
 void print_lm_available ();
 
