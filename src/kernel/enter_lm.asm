@@ -1,3 +1,8 @@
+[extern gdt_64_descriptor]
+
+[extern gdt_64_code_seg]
+[extern gdt_64_data_seg]
+
 [bits 32]
 [global enter_lm]
 enter_lm:
@@ -48,13 +53,13 @@ enter_lm_set_entry:
   mov cr0, eax
 
   ; setup 64 bit gdt
-  lgdt [gdt_64.pointer]
-  jmp gdt_64.code:init_lm
+  lgdt [gdt_64_descriptor]
+  jmp gdt_64_code_seg:init_lm
 
 [bits 64]
 init_lm:
   cli
-  mov ax, gdt_64.data
+  mov ax, gdt_64_data_seg
   mov ds, ax
   mov es, ax
   mov fs, ax
