@@ -1,6 +1,7 @@
 #include "drivers/screen.h"
 #include "bios_data.h"
 #include "long_mode.h"
+#include "pci.h"
 
 void main() {
   isr_install();
@@ -9,5 +10,4 @@ void main() {
   asm volatile("sti");
 
   clear_screen();
-  print("still works\n");
 }

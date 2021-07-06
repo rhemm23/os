@@ -4,7 +4,7 @@ kernel_offset equ 0x7e00
 
 pop dx
 mov cl, 3
-mov dh, 10
+mov dh, 24
 mov bx, kernel_offset
 
 ; load kernel code
