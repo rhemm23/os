@@ -4,8 +4,8 @@
 #include "ports.h"
 #include "color.h"
 #include "../../types.h"
+#include "../bios_data.h"
 
-#define VIDEO_ADDRESS 0xb8000
 #define MAX_ROWS (u8)25
 #define MAX_COLS (u8)80
 
@@ -46,5 +46,15 @@ void print_char (char c);
  * Writes a string to the screen
  */
 void print (char *str);
+
+/*
+ * The current video mode
+ */
+u8 video_mode ();
+
+/*
+ * Address of video memory
+ */
+u32 video_address ();
 
 #endif

@@ -16,6 +16,7 @@ struct e820_entry {
 } __attribute__((packed));
 
 struct bios_data {
+  u8 video_mode;
   u16 num_e820_entries;
   struct e820_entry e820_entries[MAX_E820_ENTRIES];
 } __attribute__((packed));

@@ -1,8 +1,8 @@
 signature equ 0x534d4150
 
 ; where we will store results in memory
-entry_cnt equ 0x9000
-data_addr equ 0x9002
+entry_cnt equ 0x9001
+data_addr equ 0x9003
 
 ; max number of supported entries
 max_entries equ 128

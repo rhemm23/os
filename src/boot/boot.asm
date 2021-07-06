@@ -17,6 +17,9 @@ jc boot_a20_failed
 ; load memory layout
 call init_mem
 
+; load video mode
+call init_video_mode
+
 ; enter protected mode, then the kernel
 call enter_pm
 jmp $
@@ -26,6 +29,7 @@ jmp $
 %include "./src/boot/disk.asm"
 %include "./src/boot/bprint.asm"
 %include "./src/boot/init_mem.asm"
+%include "./src/boot/init_video_mode.asm"
 
 boot_a20_failed:
   mov bx, a20_failed_err

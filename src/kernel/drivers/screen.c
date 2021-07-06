@@ -1,5 +1,19 @@
 #include "screen.h"
 
+u8 video_mode () {
+  struct bios_data *bios_data = (struct bios_data*)(BIOS_DATA_ADDR);
+  return bios_data->video_mode;
+}
+
+u32 video_address () {
+  u8 mode = video_mode();
+  if (mode > 0x0A) {
+    return 0x000A0000;
+  } else {
+    return 0x000B8000;
+  }
+}
+
 cursor_position_t get_cursor_position () {
   // Read upper half
   port_byte_out(REG_SCREEN_CTRL, 14);
@@ -33,7 +47,7 @@ void set_cursor_position (cursor_position_t cursor_position) {
 
 void scroll_down () {
   int i, j;
-  u8 *screen = (u8*)VIDEO_ADDRESS;
+  u8 *screen = (u8*)video_address();
   for (i = 1; i < MAX_ROWS; i++) {
     for (j = 0; j < MAX_COLS; j++) {
       screen[((i - 1) * MAX_COLS + j) * 2] = screen[(i * MAX_COLS + j) * 2];
@@ -54,7 +68,7 @@ void print_char_style (char c, enum color foreground, enum color background) {
   u8 attribute_byte = foreground_byte & 0xF;
   attribute_byte |= (background_byte & 0x7) << 4;
 
-  u8 *screen = (u8*)VIDEO_ADDRESS;
+  u8 *screen = (u8*)video_address();
   cursor_position_t cursor_position = get_cursor_position();
 
   // Scroll if cursor is at bottom right
@@ -104,7 +118,7 @@ void print (char *str) {
 
 void clear_screen_style (enum color color) {
   int i;
-  u8 *screen = (u8*)VIDEO_ADDRESS;
+  u8 *screen = (u8*)video_address();
   int screen_size = MAX_COLS * MAX_ROWS;
   for (i = 0; i < screen_size; i++) {
     screen[i * 2] = 0x00;

@@ -9,5 +9,5 @@ void main() {
   asm volatile("sti");
 
   clear_screen();
-  print_lm_available();
+  print("still works\n");
 }
